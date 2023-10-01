@@ -12,11 +12,10 @@ const { db } = require('./config')
  * @returns {Promise<void>}
  * */
 
-const connection = mongoose.connect(`mongodb+srv://223031:EWwe05ZQcQgV9AuR@cluster0.glnagiz.mongodb.net/?retryWrites=true&w=majority`, {
+const connection = mongoose.connect('mongodb+srv://223031:EWwe05ZQcQgV9AuR@cluster0.glnagiz.mongodb.net/?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
-  serverSelectionTimeoutMS: 50000
 })
     .then(() => {
         console.log("Successful connection")
