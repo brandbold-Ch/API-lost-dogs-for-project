@@ -16,7 +16,7 @@ const connection = mongoose.connect(`mongodb+srv://223031:EWwe05ZQcQgV9AuR@clust
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
-  serverSelectionTimeoutMS: 5000
+  serverSelectionTimeoutMS: 50000
 })
     .then(() => {
         console.log("Successful connection")
