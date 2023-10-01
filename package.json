@@ -2,7 +2,10 @@
   "name": "api_dogs",
   "version": "1.0.0",
   "description": "API for dogs",
-  "main": "index.js",
+  "main": "main.js",
+  "engines": {
+    "node": "16"
+  },
   "scripts": {
     "run": "nodemon main.js"
   },
