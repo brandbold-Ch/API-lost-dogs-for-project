@@ -15,7 +15,8 @@ const { db } = require('./config')
 const connection = mongoose.connect(`mongodb+srv://223031:EWwe05ZQcQgV9AuR@cluster0.glnagiz.mongodb.net/?retryWrites=true&w=majority`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true
+  useCreateIndex: true,
+  serverSelectionTimeoutMS: 5000
 })
     .then(() => {
         console.log("Successful connection")
