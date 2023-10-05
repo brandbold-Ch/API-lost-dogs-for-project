@@ -173,7 +173,7 @@ app.get('/', (req, res) => {
     res.status(200).json({'message': `Welcome ${req.ip.substring(7)} to API to lost dogs`});
 })
 
-app.get('/dogs/lost', async (req, res) => {
+app.get('/api/dogs/lost', async (req, res) => {
     try {
         res.status(200).json(await appControllers.getAllLostDogs())
     } catch (error) {
