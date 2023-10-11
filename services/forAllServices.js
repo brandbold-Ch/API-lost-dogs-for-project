@@ -59,7 +59,7 @@ class ForAllServices {
                 },
                 {
                     $addFields: {
-                        "the_lost_dogs.owner": "$_id"
+                        "my_lost_dogs.owner": "$_id"
                     }
                 },
                 {
