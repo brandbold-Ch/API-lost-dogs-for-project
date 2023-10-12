@@ -33,6 +33,16 @@ exports.updateCredentials = async (id, data) => {
     await service.updateCredentials(id, data);
 };
 
+/**
+ * Login user with email and password
+ * @async
+ * @function
+ * @param {Object} auth - Object containing email and password
+ * @param {string} auth.email - User's email
+ * @param {string} auth.password - User's password
+ * @returns {Promise<Array>} - A promise that resolves to an array containing status code and response data.
+ * */
+
 exports.login = async (auth) => {
     const {email, password} = auth;
     const user = await service.getEmail(email);
