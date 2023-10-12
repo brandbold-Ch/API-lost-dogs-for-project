@@ -52,6 +52,18 @@ class AuthServices {
         );
     };
 
+    /**
+     * Generates a JSON Web Token (JWT) for a user based on the provided payload.
+     *
+     * @async
+     * @function
+     * @param {Object} payload - The data to be included in the JWT payload.
+     * @param {string} payload.email - The user's email.
+     * @param {string} payload.user - The user identifier.
+     * @returns {Promise<string>} A Promise that resolves to the generated JWT.
+     * @throws {Error} If there's an issue during token generation.
+     */
+
     async generateTokenUser(payload) {
          return jwt.sign(payload, 'my-secret-key', {expiresIn: '2h'});
     };
