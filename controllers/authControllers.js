@@ -51,7 +51,7 @@ exports.login = async (auth) => {
         const match = bcrypt.compareSync(password, user['password']);
 
         if (match) {
-            return [200, await service.generateTokenUser({
+            return [202, await service.generateTokenUser({
                 email: user['email'],
                 user: user['user']
             })];
