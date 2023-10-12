@@ -90,12 +90,30 @@ class DogsServices {
         );
     };
 
+    /**
+     * Gets a specific lost dog from another user's lost dog list.
+     * @async
+     * @function
+     * @param {string} id - User identifier.
+     * @param {string} dog_name - Name of the dog to search for.
+     * @returns {Promise<Array>} A Promise that will be resolved to the list of lost dogs that match the specified name.
+     */
+
     async getMiddlewareOtherPost(id, dog_name) {
         return User.findOne(
             {_id: id},
             {the_lost_dogs: {$elemMatch: {dog_name: dog_name}}}
         );
     };
+
+    /**
+     * Gets a user's lost dogs by name.
+     * @async
+     * @function
+     * @param {string} id - User identifier.
+     * @param {string} dog_name - Name of the dog to search for.
+     * @returns {Promise<Array>} A Promise that will be resolved to the list of lost dogs that match the specified name.
+     */
 
     async getMyPostByName(id, dog_name) {
         const myDog = await User.find(
@@ -104,6 +122,14 @@ class DogsServices {
         return myDog[0].my_lost_dogs;
     };
 
+    /**
+     * Gets another user's lost dogs by name.
+     * @async
+     * @function
+     * @param {string} id - User identifier.
+     * @param {string} dog_name - Name of the dog to search for.
+     * @returns {Promise<Array>} A Promise that will be resolved to the list of lost dogs that match the specified name.
+     */
 
     async getOtherPostByName(id, dog_name) {
         const otherDog = await User.find(
@@ -111,6 +137,15 @@ class DogsServices {
         );
         return otherDog[0].the_lost_dogs;
     };
+
+    /**
+     * Gets a user's lost dog by ID.
+     * @async
+     * @function
+     * @param {string} id - User identifier.
+     * @param {string} dog_id - ID of the dog to retrieve.
+     * @returns {Promise<Object>} A Promise that will be resolved to the lost dog with the specified ID.
+     */
 
     async getMyPostById(id, dog_id) {
         const myDog = await User.findOne(
@@ -120,6 +155,14 @@ class DogsServices {
         return myDog['my_lost_dogs'][0];
     };
 
+    /**
+     * Gets another user's lost dog by ID.
+     * @async
+     * @function
+     * @param {string} id - User identifier.
+     * @param {string} dog_id - ID of the dog to retrieve.
+     * @returns {Promise<Object>} A Promise that will be resolved to the lost dog with the specified ID.
+     */
 
     async getOtherPostById(id, dog_id) {
         const otherDog = await User.findOne(
@@ -153,6 +196,15 @@ class DogsServices {
             {$pull: {my_lost_dogs: {_id: dog_id}}}
         );
     };
+
+    /**
+     * Removes a lost dog from another user's lost dog list.
+     * @async
+     * @function
+     * @param {string} id - User identifier.
+     * @param {string} dog_id - ID of the dog to remove.
+     * @returns {Promise<void>}
+     */
 
     async delOtherPost(id, dog_id) {
         const otherDog = await User.findOne(
@@ -211,6 +263,16 @@ class DogsServices {
         );
     };
 
+    /**
+     * Updates the information of a lost dog in another user's lost dog list.
+     * @async
+     * @function
+     * @param {string} id - User identifier.
+     * @param {string} dog_id - ID of the dog to update.
+     * @param {Object} dog_data - New dog data.
+     * @returns {Promise<void>}
+     */
+
     async updateOtherPost(id, dog_id, dog_data) {
         const dog = await this.getOtherPostById(id, dog_id)
         dog_data.tags = dog.tags;
@@ -241,12 +303,32 @@ class DogsServices {
         );
     };
 
+    /**
+     * Inserts tags into a user's lost dog.
+     * @async
+     * @function
+     * @param {string} id - User identifier.
+     * @param {string} dog_id - ID of the dog.
+     * @param {Object} data - Tags data.
+     * @returns {Promise<void>}
+     */
+
     async insertTagsMyPost(id, dog_id, data) {
         await User.updateOne(
             {_id: id, "my_lost_dogs._id": dog_id},
             {$push: {"my_lost_dogs.$.tags": data}}
         );
     };
+
+    /**
+     * Inserts tags into another user's lost dog.
+     * @async
+     * @function
+     * @param {string} id - User identifier.
+     * @param {string} dog_id - ID of the dog.
+     * @param {Object} data - Tags data.
+     * @returns {Promise<void>}
+     */
 
     async insertTagsOtherPost(id, dog_id, data) {
         await User.updateOne(
@@ -255,12 +337,34 @@ class DogsServices {
         );
     };
 
+     /**
+     * Deletes tags from a user's lost dog.
+     * @async
+     * @function
+     * @param {string} id - User identifier.
+     * @param {string} dog_id - ID of the dog.
+     * @param {string} key - Key of the tag to delete.
+     * @param {string} tag_value - Value of the tag to delete.
+     * @returns {Promise<void>}
+     */
+
     async delTagsMyPost(id, dog_id, key, tag_value) {
         await User.updateOne(
             {_id: id, "my_lost_dogs._id": dog_id},
             {$pull: {"my_lost_dogs.$.tags": {[key]: tag_value}}}
         );
     };
+
+    /**
+     * Deletes tags from another user's lost dog.
+     * @async
+     * @function
+     * @param {string} id - User identifier.
+     * @param {string} dog_id - ID of the dog.
+     * @param {string} key - Key of the tag to delete.
+     * @param {string} tag_value - Value of the tag to delete.
+     * @returns {Promise<void>}
+     */
 
     async delTagsOtherPost(id, dog_id, key, tag_value) {
         await User.updateOne(
