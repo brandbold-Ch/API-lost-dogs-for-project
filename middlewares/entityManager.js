@@ -1,5 +1,19 @@
+/**
+ * @author Brandon Jared Molina Vazquez
+ * @date 30/09/2023
+ * @file This module is for user middleware.
+ */
+
 const userControllers = require('../controllers/userControllers');
 const dogsControllers = require('../controllers/dogsControllers');
+
+/**
+ * Middleware to check if a user with the specified ID exists.
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @param {Function} next - Express next middleware function.
+ * @returns {void}
+ */
 
 const checkUserExists = async (req, res, next) => {
     try {
@@ -15,6 +29,14 @@ const checkUserExists = async (req, res, next) => {
         res.status(500).json({'message': error.message});
     }
 };
+
+/**
+ * Middleware to check if a post with the specified ID or dog name exists in the user's array.
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @param {Function} next - Express next middleware function.
+ * @returns {void}
+ */
 
 const checkMyPostExists = async (req, res, next) => {
     try {
@@ -39,11 +61,19 @@ const checkMyPostExists = async (req, res, next) => {
             res.status(404).json({'message': 'You need to define the query to get the dog'});
         }
 
-
     } catch (error) {
         res.status(500).json({'message': error.message})
     }
 };
+
+/**
+ * Middleware to check if a post with the specified ID or dog name exists in other users' arrays.
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @param {Function} next - Express next middleware function.
+ * @returns {void}
+ */
+
 const checkOtherPostExists = async (req, res, next) => {
     try {
         if (req.query.dog) {
@@ -71,12 +101,20 @@ const checkOtherPostExists = async (req, res, next) => {
     }
 };
 
+/**
+ * General endpoint middleware for custom endpoint validation.
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @param {Function} next - Express next middleware function.
+ * @returns {void}
+ */
+
 const generalEndpoint = async (req, res, next) => {
     try {
 
         if (req.url.substring(0, 19) === '/api/dogs/lost/board') {
 
-            if (req.query.owner && req.query.dog ) {
+            if (req.query.owner && req.query.dog) {
                 next();
             } else {
                 res.status(404).json({'message': 'Parameters: owner=true or false; dog=id'})
