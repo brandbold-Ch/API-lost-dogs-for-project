@@ -18,6 +18,16 @@ exports.getAllLostDogs = async (isOwner) => {
     return await service.getAllLostDogs(isOwner);
 };
 
+/**
+ * Get user and dog information.
+ * @async
+ * @function
+ * @param {string} id - ID user
+ * @param {string} dog_id - Dog ID identifier
+ * @param {boolean} isOwner - Flag to determine if the user is the owner
+ * @returns {Promise<Array>} - A promise that resolves to an array.
+ */
+
 exports.getUserAndDog = async (id, dog_id, isOwner) => {
     return await service.getUserAndDog(id, dog_id, isOwner);
 };
