@@ -16,6 +16,16 @@ class ForAllServices {
 
     constructor() {};
 
+    /**
+     * Get information about a user and a specific dog based on ownership.
+     * @async
+     * @function
+     * @param {string} id - User identifier.
+     * @param {string} dog_id - ID of the dog.
+     * @param {boolean} isOwner - Indicates if the user is the owner.
+     * @returns {Promise<Array||Object>} A Promise that resolves to an array containing information about the user and the specific dog.
+     */
+
     async getUserAndDog(id, dog_id, isOwner){
         let user; let dog;
         if (isOwner === 'true') {
@@ -49,6 +59,14 @@ class ForAllServices {
         }
 
     };
+
+    /**
+     * Get information about all lost dogs based on ownership.
+     * @async
+     * @function
+     * @param {boolean} isOwner - Indicates if the user is the owner.
+     * @returns {Promise<Array||Object>} A Promise that resolves to an array containing information about lost dogs.
+     */
 
     async getAllLostDogs(isOwner){
 
