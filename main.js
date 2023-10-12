@@ -53,8 +53,8 @@ app.post('/api/users/login', async (req, res) => {
         if (req.body.email && req.body.password) {
 
             switch (key[0]) {
-                case 200:
-                    res.status(200).send(key[1]);
+                case 202:
+                    res.status(202).send(key[1]);
                     break;
 
                 case 401:
@@ -62,7 +62,7 @@ app.post('/api/users/login', async (req, res) => {
                     break;
 
                 case 404:
-                    res.status(200).json(key[1]);
+                    res.status(404).json(key[1]);
                     break;
             }
         } else {
@@ -168,7 +168,7 @@ app.delete('/api/users/:id/delete', isAuthenticate, checkUserExists, async (req,
 app.put('/api/users/:id/update', isAuthenticate, checkUserExists, async (req, res) => {
     try {
         await userControllers.updateUser(req.params.id, req.body);
-        res.status(200).json({'message': 'Update user'});
+        res.status(202).json({'message': 'Update user'});
 
     } catch (error) {
         res.status(500).json({'message': error.message});
@@ -189,7 +189,7 @@ app.put('/api/users/:id/update', isAuthenticate, checkUserExists, async (req, re
 app.put('/api/users/:id/networks/update', isAuthenticate, checkUserExists, async (req, res) => {
     try {
         await userControllers.updateNetwork(req.params.id, req.query.social, req.body);
-        res.status(200).json({'message': 'Updated social media'});
+        res.status(202).json({'message': 'Updated social media'});
     } catch (error) {
         res.status(500).json({'message': error.message});
     }
@@ -209,7 +209,7 @@ app.put('/api/users/:id/networks/update', isAuthenticate, checkUserExists, async
 app.put('/api/users/:id/credentials/update', isAuthenticate, checkUserExists, async (req, res) => {
     try {
         await authControllers.updateCredentials(req.params.id, req.body);
-        res.status(200).json({'message': 'Updated credentials'});
+        res.status(202).json({'message': 'Updated credentials'});
 
     } catch (error) {
         res.status(500).json({'message': error.message});
@@ -387,7 +387,7 @@ app.delete('/api/users/:id/posts/other/delete', isAuthenticate, checkUserExists,
 app.put('/api/users/:id/posts/mine/update', isAuthenticate, checkUserExists, checkMyPostExists, async (req, res) => {
     try {
         await dogsControllers.updateMyPost(req.params.id, req.query.id, req.body);
-        res.status(200).json({'message': 'Updated post'});
+        res.status(202).json({'message': 'Updated post'});
 
     } catch (error) {
         res.status(500).json({'message': error.message});
@@ -408,7 +408,7 @@ app.put('/api/users/:id/posts/mine/update', isAuthenticate, checkUserExists, che
 app.put('/api/users/:id/posts/other/update', isAuthenticate, checkUserExists, checkOtherPostExists, async (req, res) => {
     try {
         await dogsControllers.updateOtherPost(req.params.id, req.query.id, req.body);
-        res.status(200).json({'message': 'Updated post'});
+        res.status(202).json({'message': 'Updated post'});
 
     } catch (error) {
         res.status(500).json({'message': error.message});
@@ -429,7 +429,7 @@ app.put('/api/users/:id/posts/other/update', isAuthenticate, checkUserExists, ch
 app.post('/api/users/:id/posts/mine/tags/new', isAuthenticate, checkUserExists, checkMyPostExists, async (req, res) => {
     try {
         await dogsControllers.insertTagsMyPost(req.params.id, req.query.id, req.body);
-        res.status(200).json({'message': 'Added tag'});
+        res.status(201).json({'message': 'Added tag'});
 
     } catch (error) {
         res.status(500).json({'message': error.message});
@@ -450,7 +450,7 @@ app.post('/api/users/:id/posts/mine/tags/new', isAuthenticate, checkUserExists, 
 app.post('/api/users/:id/posts/other/tags/new', isAuthenticate, checkUserExists, checkOtherPostExists, async (req, res) => {
     try {
         await dogsControllers.insertTagsOtherPost(req.params.id, req.query.id, req.body);
-        res.status(200).json({'message': 'Added tag'});
+        res.status(201).json({'message': 'Added tag'});
 
     } catch (error) {
         res.status(500).json({'message': error.message});
